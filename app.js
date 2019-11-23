@@ -38,8 +38,6 @@ MongoClient.connect(url, {
 
     app.get('/user', function (req, res) {
         var cookies = cookie.parse(req.headers.cookie || '');
-        // console.log(req.headers.cookie);
-        console.log(cookies);
         if (!cookies.name) {
             res.redirect('/home');
         } else {
@@ -72,19 +70,15 @@ MongoClient.connect(url, {
     app.get('/register', function (req, res) {
         res.render('registerPage');
         res.end();
-        // console.log(req.headers.cookie);
-        // console.log(cookies.name);
-
     });
+
+
     app.get('/login', function (req, res) {
         var cookies = cookie.parse(req.headers.cookie || '');
-        // console.log(req.headers.cookie);
-        // console.log(cookies.name);
         if (!cookies.name) {
             res.render('loginPage');
         } else {
             db.collection("user").find(cookies).toArray(function (err, result) {
-                // console.log(result);
                 if (result.length) {
                     res.redirect('/user');
                 } else res.render('loginPage');
@@ -94,7 +88,6 @@ MongoClient.connect(url, {
 
     app.post('/register', (req, res) => {
         var data = req.body;
-        console.log(data);
         data.name = md5(data.username + data.password);
         db.collection("user").insertOne(data, function (err, result) {
             if (err) console.log("loi");
@@ -107,7 +100,6 @@ MongoClient.connect(url, {
 
     app.post('/login', function (req, res) {
         var data = req.body
-        console.log(data);
         db.collection("user").find(data).toArray(function (err, result) {
             if (err) throw err;
             if (result.length) {
@@ -123,8 +115,6 @@ MongoClient.connect(url, {
 
     app.get('/home', function (req, res) {
         var cookies = cookie.parse(req.headers.cookie || '');
-        // console.log(req.headers.cookie);
-        // console.log(cookies.name);
         db.collection('data').find().limit(1).sort({
             _id: -1
         }).toArray(function (err, data) {
@@ -156,10 +146,11 @@ MongoClient.connect(url, {
             gy68_p:Number(req.query.gy68_p),
             createdTime: Date.now()
         }
+        // console.log(data)
         db.collection("data").insertOne(data, function (err, result) {
             if (err) console.log("loi");
             console.log("1 document inserted");
-            res.send('lolololo')
+            res.send('ok')
             res.end();
         });
     });
