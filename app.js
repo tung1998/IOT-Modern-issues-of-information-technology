@@ -150,11 +150,12 @@ MongoClient.connect(url, {
 
     app.get('/getData', (req, res) => {
         let data = {
-            dht22_t,
-            dht22_h,
-            gy68_t,
-            gy68_p,
-        } = req.query
+            dht22_t:Number(req.query.dht22_t),
+            dht22_h:Number(req.query.dht22_h),
+            gy68_t:Number(req.query.gy68_t),
+            gy68_p:Number(req.query.gy68_p),
+            createdTime: Date.now()
+        }
         db.collection("data").insertOne(data, function (err, result) {
             if (err) console.log("loi");
             console.log("1 document inserted");
