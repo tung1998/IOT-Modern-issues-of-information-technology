@@ -1,0 +1,327 @@
+extends header
+
+block content
+    body.fixed-left
+        div#preloader
+            div#status
+                div.spinner
+        // Begin page
+        div#wrapper
+            // ========== Left Sidebar Start ==========
+            div.left.side-menu
+                button.button-menu-mobile.button-menu-mobile-topbar.open-left.waves-effect(type='button')
+                    i.mdi.mdi-close
+                // LOGO
+                div.topbar-left
+                    div.text-center
+                        a.logo(href='/')
+                            img.logo-large(src='/images/logoText.png' alt='' height="100")
+                div#sidebar-main.sidebar-inner.slimscrollleft
+                    div#sidebar-menu
+                        ul
+                            li.has_sub
+                                a.waves-effect()
+                                    i.mdi.mdi-folder-account
+                                    span  My files
+                                    span.float-right
+                                        i.mdi.mdi-chevron-right
+                                ul.list-unstyled
+                                    li
+                                        a(href='ui-badge.html') Badge
+                                    li
+                                        a.waves-effect()
+                                            i.mdi.mdi-view-dashboard
+                                            span
+                                                | Dashboard
+                                                span.badge.badge-pill.badge-primary.float-right
+                                    li.has_sub
+                                        a.waves-effect()
+                                            i.mdi.mdi-calendar-clock
+                                            span  Calendar
+                                    li
+                                        a(href='ui-alertify.html') Alertify
+                            li.has_sub
+                                a.waves-effect(href='javascript:void(0);')
+                                    i.mdi.mdi-table
+                                    span  Share with me
+                                    span.float-right
+                                        i.mdi.mdi-chevron-right
+                                ul.list-unstyled
+                                    li
+                                        a(href='tables-basic.html') Basic Tables
+                                    li
+                                        a(href='tables-datatable.html') Data Table
+                                    li.has_sub
+                                        a.waves-effect(href='javascript:void(0);')
+                                            i.mdi.mdi-cards
+                                            span  Forms
+                                            span.badge.badge-pill.badge-info.float-right 8
+                                        ul.list-unstyled
+                                            li
+                                                a(href='form-elements.html') Form Elements
+                                            li
+                                                a(href='form-validation.html') Form Validation
+                                            li
+                                                a(href='form-advanced.html') Form Advanced
+
+                            li.has_sub
+                                a.waves-effect(href='javascript:void(0);')
+                                    i.mdi.mdi-heart
+                                    span  In love
+                                    span.float-right
+                                        i.mdi.mdi-chevron-right
+                                ul.list-unstyled
+                                    li
+                                        a(href='icons-material.html') Material Design
+
+                            li.has_sub
+                                a.waves-effect(href='javascript:void(0);')
+                                    i.mdi.mdi-av-timer
+                                    span  Open recently
+                                    span.float-right
+                                        i.mdi.mdi-chevron-right
+                                ul.list-unstyled
+                                    li
+                                        a(href='charts-morris.html') Morris Chart
+                                    li
+                                        a(href='charts-chartist.html') Chartist Chart
+                                    li
+                                        a(href='charts-chartjs.html') Chartjs Chart
+
+                            li.menu-title Extra
+                            li.has_sub
+                                a.waves-effect(href='javascript:void(0);')
+                                    i.mdi.mdi-delete
+                                    span  Trash
+                                    span.badge.badge-pill.badge-danger.float-right 2
+                                ul.list-unstyled
+                                    li
+                                        a(href='maps-google.html')  Google Map
+                                    li
+                                        a(href='maps-vector.html')  Vector Map
+
+                    div.clearfix
+                // end sidebarinner
+            // Left Sidebar End
+            // Start right Content here
+            div.content-page
+                // Start content
+                div.content
+                    // Top Bar Start
+                    div.topbar
+                        nav.navbar-custom
+                            div
+                                .dropdown.notification-list.nav-pro-img
+                                    .list-inline-item.hide-phone.app-search
+                                        form(role='search')
+                                            .form-group.pt-1
+                                                input.form-control(type='text' placeholder='Search..')
+                                                a(href='#')
+                                                    i.fa.fa-search
+                                ul.list-inline.float-right.mb-0.mr-3
+                                    // language
+                                    li.list-inline-item.dropdown.notification-list(data-toggle="tooltip" data-placement="bottom" title="" data-original-title="messenger")
+                                        a.nav-link.dropdown-toggle.arrow-none.waves-effect(data-toggle='dropdown' href='#' role='button' aria-haspopup='false' aria-expanded='false')
+                                            i.ti-email.noti-icon
+                                            span.badge.badge-danger.heartbit.noti-icon-badge 5
+                                        .dropdown-menu.dropdown-menu-right.dropdown-arrow.dropdown-menu-lg
+                                            // item
+                                            .dropdown-item.noti-title.align-self-center
+                                                h5
+                                                    span.badge.badge-danger.float-right 745
+                                                    | Messages
+                                            // item
+                                            a.dropdown-item.notify-item(href='javascript:void(0);')
+                                                .notify-icon
+                                                    img.img-fluid.rounded-circle(src='assets/images/users/avatar-2.jpg' alt='user-img')
+                                                p.notify-details
+                                                    b Charles M. Jones
+                                                    small.text-muted Dummy text of the printing and typesetting industry.
+                                            // item
+                                            a.dropdown-item.notify-item(href='javascript:void(0);')
+                                                .notify-icon
+                                                    img.img-fluid.rounded-circle(src='assets/images/users/avatar-3.jpg' alt='user-img')
+                                                p.notify-details
+                                                    b Thomas J. Mimms
+                                                    small.text-muted You have 87 unread messages
+                                            // item
+                                            a.dropdown-item.notify-item(href='javascript:void(0);')
+                                                .notify-icon
+                                                    img.img-fluid.rounded-circle(src='assets/images/users/avatar-4.jpg' alt='user-img')
+                                                p.notify-details
+                                                    b Luis M. Konrad
+                                                    small.text-muted It is a long established fact that a reader will
+                                            // All
+                                            a.dropdown-item.notify-item(href='javascript:void(0);')
+                                                | View All
+                                    li.list-inline-item.dropdown.notification-list(data-toggle="tooltip" data-placement="bottom" title="" data-original-title="this is bell")
+                                        a.nav-link.dropdown-toggle.arrow-none.waves-effect(data-toggle='dropdown' href='#' role='button' aria-haspopup='false' aria-expanded='false')
+                                            i.ti-bell.noti-icon
+                                            span.badge.badge-success.a-animate-blink.noti-icon-badge 3
+                                        .dropdown-menu.dropdown-menu-right.dropdown-arrow.dropdown-menu-lg
+                                            // item
+                                            .dropdown-item.noti-title
+                                                h5
+                                                    span.badge.badge-danger.float-right 87
+                                                    | Notification
+                                            // item
+                                            a.dropdown-item.notify-item(href='javascript:void(0);')
+                                                .notify-icon.bg-primary
+                                                    i.mdi.mdi-cart-outline
+                                                p.notify-details
+                                                    b Your order is placed
+                                                    small.text-muted Dummy text of the printing and typesetting industry.
+                                            // item
+                                            a.dropdown-item.notify-item(href='javascript:void(0);')
+                                                .notify-icon.bg-success
+                                                    i.mdi.mdi-message
+                                                p.notify-details
+                                                    b New Message received
+                                                    small.text-muted You have 87 unread messages
+                                            // item
+                                            a.dropdown-item.notify-item(href='javascript:void(0);')
+                                                .notify-icon.bg-warning
+                                                    i.mdi.mdi-martini
+                                                p.notify-details
+                                                    b Your item is shipped
+                                                    small.text-muted It is a long established fact that a reader will
+                                            // All
+                                            a.dropdown-item.notify-item(href='javascript:void(0);')
+                                                | View All
+                                    li.list-inline-item.dropdown.notification-list
+                                        a.nav-link.dropdown-toggle.arrow-none.waves-effect.nav-user(data-toggle='dropdown' href='#' role='button' aria-haspopup='false' aria-expanded='false')
+                                            img.rounded-circle.img-thumbnail(src='assets/images/users/avatar-1.jpg' alt='user')
+                                        .dropdown-menu.dropdown-menu-right.profile-dropdown
+                                            // item
+                                            .dropdown-item.noti-title
+                                                h5 Welcome
+                                            a.dropdown-item(href='#')
+                                                i.mdi.mdi-account-circle.m-r-5.text-muted
+                                                |  Profile
+                                            a.dropdown-item(href='#')
+                                                i.mdi.mdi-wallet.m-r-5.text-muted
+                                                |  My Wallet
+                                            a.dropdown-item.d-block(href='#')
+                                                span.badge.badge-success.float-right 5
+                                                i.mdi.mdi-settings.m-r-5.text-muted
+                                                |  Settings
+                                            a.dropdown-item(href='#')
+                                                i.mdi.mdi-lock-open-outline.m-r-5.text-muted
+                                                |  Lock screen
+                                            .dropdown-divider
+                                            a.dropdown-item(href='javascript:logout()')
+                                                i.mdi.mdi-logout.m-r-5.text-muted
+                                                |  Logout
+                                ul.list-inline.menu-left.mb-0
+                                    li.float-left
+                                        button.button-menu-mobile.open-left.waves-light.waves-effect
+                                            i.mdi.mdi-menu
+                                .clearfix
+                            div.row
+                                .col-sm-11
+                                    .page-title-box
+                                        .btn-group
+                                            ul.list-inline.hide-phone.p-0.m-0
+                                                li.list-inline-item
+                                                    button.btn.btn-path(type='button') local
+                                                    i.mdi.mdi-chevron-right
+                                                li.list-inline-item
+                                                    button.btn.btn-path(type='button') local
+                                                    i.mdi.mdi-chevron-right
+                                                li.list-inline-item
+                                                    button.btn.btn-path(type='button') local
+                                                    i.mdi.mdi-chevron-right
+                                                li.list-inline-item
+                                                    button.btn.btn-path(type='button') local
+                                                    i.mdi.mdi-chevron-right
+                                                li.list-inline-item
+                                                    .dropdown.mo-mb-2
+                                                        button.btn.btn-path.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                                                            | Dropdown button
+                                                            .ripple-container
+                                                        .dropdown-menu(x-placement='bottom-start' style='position: absolute; top: 36px; left: 0px; will-change: top, left;')
+                                                            a.dropdown-item(href='#') Action
+                                                            a.dropdown-item(href='#') Another action
+                                                            a.dropdown-item(href='#') Something else here
+                                ul.list-inline.float-right.mb-0
+                                    li.dropdown.notification-list(data-toggle="tooltip" data-placement="bottom" title="" data-original-title="messenger")
+                                        a.nav-link.dropdown-toggle.arrow-none.waves-effect(data-toggle='dropdown' href='#' role='button' aria-haspopup='false' aria-expanded='false')
+                                            i.ti-layout-list-thumb-alt.noti-icon
+                                            // item
+
+
+                                    .clearfix
+                    // Top Bar End
+                    div.page-content-wrapper
+                        div.container-fluid
+                            div.row
+                                div.col-md-12.col-xl-12
+                                    div.card.m-b-30
+                                        div.card-body
+                                            div.row.icon-demo-content
+                                                a.col-sm-6.col-md-4.col-lg-3(href="/")
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                a.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                a.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                div.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                div.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                div.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                div.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                div.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                div.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+                                                div.col-sm-6.col-md-4.col-lg-3
+                                                    i.mdi.mdi-access-point
+                                                    | mdi mdi-access-point
+
+
+
+                                // end col
+
+                            span(class="context-menu-one btn btn-neutral") right click me
+                            // end-row
+                        // container
+                    // Page content Wrapper
+                // content
+                footer.footer
+                    | &copy; 2018 Urora by Mannatthemes.
+            // End Right content here
+        // END wrapper
+        // END wrapper
+        // jQuery
+
+
+        script(src='assets/js/jquery.min.js')
+        script(src='assets/js/popper.min.js')
+        script(src='assets/js/bootstrap-material-design.js')
+        script(src='assets/js/modernizr.min.js')
+        script(src='assets/js/detect.js')
+        script(src='assets/js/fastclick.js')
+        script(src='assets/js/jquery.slimscroll.js')
+        script(src='assets/js/jquery.blockUI.js')
+        script(src='assets/js/waves.js')
+        script(src='assets/js/jquery.nicescroll.js')
+        script(src='assets/js/jquery.scrollTo.min.js')
+
+        // App js
+        script(src='assets/js/app.js')
+        link(href='jquery/dist/jquery.contextMenu.css' rel='stylesheet' type='text/css')
+        script(src='jquery/dist/jquery.contextMenu.js')
+        script(src='jquery/dist/jquery.ui.position.js')
+        script(src='javascript/filePage.js')
