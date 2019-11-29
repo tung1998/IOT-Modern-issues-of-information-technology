@@ -11,5 +11,8 @@ body {
 #lastData{
   margin-bottom: 30px;
 }
-#chartData{
+
+#lastData i{
+  color: white;
+  font-size: 30px;
 }

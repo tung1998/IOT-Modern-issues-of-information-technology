@@ -7,6 +7,7 @@ html(lang="vi")
         meta(name="viewport" content="width=device-width, initial-scale=1")
         //- css
         link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css")
         link(rel="stylesheet" href="stylesheet/style.css" type="text/css")
         //- script
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
@@ -14,23 +15,64 @@ html(lang="vi")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" type="text/javascript")
     body
         .container
+            .row
+                h1 Đo lần cuối vào lúc: 
+                    span#time
             #lastData.row
-                .col-sm-12.col-md-3
-                    .card.bg-primary.text-white.m-2.row
-                        .title.col-6 Primary card
-                        #DHT22_temp.card-body.col-6 16c
-                .col-sm-12.col-md-3
-                    .card.bg-info.text-white.m-2
-                        #DHT22_humi.card-body Primary card
-                .col-sm-12.col-md-3
-                    .card.bg-warning.text-white.m-2
-                        #GY68-temp.card-body Primary card
-                .col-sm-12.col-md-3
-                    .card.bg-danger.text-white.m-2
-                        #GY68-atm.card-body Primary card
+                .col-sm-12.col-md-6.col-xl-3
+                    .card.bg-danger.m-b-30
+                        .card-body
+                            .d-flex.row
+                                .col-3.align-self-center
+                                    .round
+                                        i.fa.fa-temperature-low
+                                .col-8.ml-auto.align-self-center.text-center
+                                    .m-l-10.text-white.float-right
+                                        h5#DHT-tem.mt-0.round-inner
+                                        p.mb-0 Nhiệt độ DHT-22
+                .col-sm-12.col-md-6.col-lg-6.col-xl-3
+                    .card.bg-info.m-b-30
+                        .card-body
+                            .d-flex.row
+                                .col-3.align-self-center
+                                    .round
+                                        i.fa.fa-thermometer-full
+                                .col-8.text-center.ml-auto.align-self-center
+                                    .m-l-10.text-white.float-right
+                                        h5#GY-tem.mt-0.round-inner
+                                        p.mb-0 Nhiệt độ GY-68
+                .col-sm-12.col-md-6.col-lg-6.col-xl-3
+                    .card.bg-success.m-b-30
+                        .card-body
+                            .d-flex.row
+                                .col-3.align-self-center
+                                    .round
+                                        i.fa.fa-tint
+                                .col-8.ml-auto.align-self-center.text-center
+                                    .m-l-10.text-white.float-right
+                                        h5#DHT-humi.mt-0.round-inner
+                                        p.mb-0 Độ ẩm
+                .col-sm-12.col-md-6.col-lg-6.col-xl-3
+                    .card.bg-primary.m-b-30
+                        .card-body
+                            .d-flex.row
+                                .col-3.align-self-center
+                                    .round
+                                        i.fa.fa-cloud
+                                .col-8.ml-auto.align-self-center.text-center
+                                    .m-l-10.text-white.float-right
+                                        h5#GY-atm.mt-0.round-inner 
+                                        p.mb-0 Khí áp
+
             .row
                 #chart.col-12
                     canvas#chartData
+            .row
+                #chart.col-12
+                    canvas#chartHumi
+            .row
+                #chart.col-12
+                    canvas#chartAtm
         script(src="/script.js" type="text/javascript")
 
 

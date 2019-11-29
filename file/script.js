@@ -1,15 +1,32 @@
 var chart;
 var chartData = [];
+let tempChart
 
 $(document).ready(function () {
-    // setInterval(function () {
-
-    //     reloadData()
-    // }, 5000)
-    renderChart()
+    initChart()
     resizePage()
+    renderPage()
+    setInterval(function () {
+        renderPage()
+    }, 60 * 1000)
+
 });
 
+
+function renderPage() {
+    getLastData().then(result => {
+        $('#DHT-tem').html(`${result[0].dht22_t} độ C`)
+        $('#GY-tem').html(`${result[0].gy68_t} độ C`)
+        $('#DHT-humi').html(`${result[0].dht22_h} %`)
+        $('#GY-atm').html(`${result[0].gy68_p} pa`)
+        $('#GY-atm').html(`${result[0].gy68_p} pa`)
+        $('#time').html(getTime(result[0].createdTime))
+    }).catch(console.log)
+    getChartData().then(result => {
+        console.log(result)
+        renderChart(tempChart, result.reverse())
+    }).catch(console.log)
+}
 
 function reloadData() {
     $.ajax({
@@ -18,8 +35,6 @@ function reloadData() {
         url: '/getData',
         contentType: "application/json",
         success: function (data) {
-            // data=JSON.parse(data);
-            console.log(data);
             generateChartData(data);
             chart.dataProvider = chartData;
             chart.validateData();
@@ -28,49 +43,116 @@ function reloadData() {
 }
 
 
-function renderChart() {
-    var ctx = document.getElementById('chartData').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
+function initChart() {
+    tempChart = new Chart('chartData', {
+        type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: [],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
+                    label: ['Nhiệt độ DHT-22'],
+                    data: [],
+                    backgroundColor: [
+                        'rgba(0, 0, 0, 0)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 2
+                },
+                {
+                    label: ['Nhiệt độ GY-68'],
+                    data: [],
+                    backgroundColor: [
+                        'rgba(0, 0, 0, 0)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 2
+                }
+            ]
         },
         options: {
+            title: {
+                display: true,
+                text: 'Biểu đồ nhiệt độ'
+            },
             scales: {
-                yAxes: [{
+                xAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        autoSkip: true,
+                        maxTicksLimit: 7
                     }
                 }]
+            },
+            elements: {
+                point:{
+                    radius: 0
+                }
             }
         }
     });
+
+    
 }
 
-function resizePage(){
+function resizePage() {
     let screenHeight = window.innerHeight
     let headerheight = $('#lastData').outerHeight()
-    $('#chartData').css({'max-height':`${(screenHeight-headerheight-30)}px`})
-    console.log(screenHeight,headerheight)
+    $('#chartData').css({
+        'max-height': `${(screenHeight-headerheight-30)}px`
+    })
+}
+
+function getLastData() {
+    return new Promise((resolve, rejects) => {
+        $.ajax({
+            type: 'get',
+            url: '/getLastData',
+            contentType: "application/json",
+            success: function (data) {
+                resolve(data)
+            },
+            error: function (xhr) {
+                rejects(xhr)
+            }
+        })
+    })
+}
+
+
+function getChartData() {
+    return new Promise((resolve, rejects) => {
+        $.ajax({
+            type: 'get',
+            url: '/getDataChart',
+            contentType: "application/json",
+            success: function (data) {
+                resolve(data)
+            },
+            error: function (xhr) {
+                rejects(xhr)
+            }
+        })
+    })
+}
+
+function getDate(time) {
+    let newDate = new Date(time)
+    return `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`
+}
+
+function getTime(time) {
+    let newDate = new Date(time)
+    return `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`
+}
+
+function renderChart(chart, data) {
+    let labels = data.map(item => getTime(item.createdTime))
+    let dht22_t = data.map(item => item.dht22_t)
+    let gy68_t = data.map(item => item.gy68_t)
+    chart.data.labels = labels
+    chart.data.datasets[0].data = dht22_t
+    chart.data.datasets[1].data = gy68_t
+    chart.update()
 }

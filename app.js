@@ -27,7 +27,44 @@ MongoClient.connect(url, {
 
 
     app.get('/getDataChart', (req, res, next) => {
-        db.collection('data').find().limit(50).sort({
+        let curentDate = Math.ceil(Date.now() / (3600000))* 3600000
+        let data = []
+        db.collection('data').find({}).sort({
+            _id: 1
+        }).toArray(function (err, result) {
+            for (let i = 0; i < 161; i++) {
+                data.push(result.filter(item => item.createdTime >= curentDate - (i + 0.5) * 3600000 && item.createdTime <= curentDate - (i - 0.5) * 3600000))
+            }
+            let sendData = data.map((dataInDate, index) => {
+                dataInDateData = dataInDate.reduce((acc, cur) => {
+                    if (!isNaN(cur.dht22_t)) acc.dht22_t += cur.dht22_t
+                    if (!isNaN(cur.dht22_h)) acc.dht22_h += cur.dht22_h
+                    if (!isNaN(cur.gy68_t)) acc.gy68_t += cur.gy68_t
+                    if (!isNaN(cur.gy68_p)) acc.gy68_p += cur.gy68_p
+                    return acc
+                }, {
+                    dht22_t: 0,
+                    dht22_h: 0,
+                    gy68_t: 0,
+                    gy68_p: 0,
+                    createdTime: `${curentDate-(index+1)*3600000}`
+                })
+                return {
+                    dht22_t: (dataInDateData.dht22_t / dataInDate.length).toFixed(2),
+                    dht22_h: (dataInDateData.dht22_h / dataInDate.length).toFixed(2),
+                    gy68_t: (dataInDateData.gy68_t / dataInDate.length).toFixed(2),
+                    gy68_p: (dataInDateData.gy68_p / dataInDate.length).toFixed(2),
+                    createdTime: curentDate - (index + 1) * 3600000
+                }
+            })
+            // console.log(data)
+            res.send(sendData);
+            res.end();
+        })
+    })
+
+    app.get('/getLastData', (req, res, next) => {
+        db.collection('data').find().limit(1).sort({
             _id: -1
         }).toArray(function (err, data) {
             res.send(data);
@@ -79,3 +116,19 @@ MongoClient.connect(url, {
     });
 });
 
+
+function getDataByTime(db, startTime, endTime) {
+    return new Promise((resolve, reject) => {
+        db.collection('data').find({
+            createdTime: {
+                $gt: startTime,
+                $lt: endTime
+            }
+        }).sort({
+            _id: 1
+        }).toArray(function (err, data) {
+            if (err) reject(err)
+            resolve(data)
+        })
+    })
+}
