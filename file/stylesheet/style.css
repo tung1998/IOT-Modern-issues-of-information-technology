@@ -7,3 +7,9 @@ body {
 .btn-path{
   font-size: 20px;
 }
+
+#lastData{
+  margin-bottom: 30px;
+}
+#chartData{
+}
