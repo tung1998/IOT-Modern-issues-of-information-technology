@@ -1,11 +1,24 @@
 var chart;
-var chartData = [];
 let tempChart
+let humiChart
+let atmChart
 
 $(document).ready(function () {
+    //event
+    $('.head-card').on('click', (e) => {
+        showChart($(e.currentTarget).attr('name'))
+    })
+
+
     initChart()
     resizePage()
     renderPage()
+    getChartData().then(result => {
+        console.log(result)
+        renderTempChart(tempChart, result.reverse())
+        renderHumiChart(humiChart, result.reverse())
+        renderAtmChart(atmChart, result.reverse())
+    }).catch(console.log)
     setInterval(function () {
         renderPage()
     }, 60 * 1000)
@@ -22,29 +35,87 @@ function renderPage() {
         $('#GY-atm').html(`${result[0].gy68_p} pa`)
         $('#time').html(getTime(result[0].createdTime))
     }).catch(console.log)
-    getChartData().then(result => {
-        console.log(result)
-        renderChart(tempChart, result.reverse())
-    }).catch(console.log)
-}
-
-function reloadData() {
-    $.ajax({
-        async: false,
-        type: 'post',
-        url: '/getData',
-        contentType: "application/json",
-        success: function (data) {
-            generateChartData(data);
-            chart.dataProvider = chartData;
-            chart.validateData();
-        }
-    })
+    
 }
 
 
 function initChart() {
-    tempChart = new Chart('chartData', {
+    humiChart = new Chart('chartHumi', {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: ['Độ ẩm DHT-22'],
+                data: [],
+                backgroundColor: [
+                    'rgba(0, 0, 0, 0)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Biểu đồ độ ẩm'
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 7
+                    }
+                }]
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+        }
+    });
+
+    atmChart = new Chart('chartAtm', {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: ['Khí áp GY-68'],
+                data: [],
+                backgroundColor: [
+                    'rgba(0, 0, 0, 0)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 2
+            }]
+        },
+
+        options: {
+            title: {
+                display: true,
+                text: 'Biểu đồ khí áp'
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 7
+                    }
+                }]
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+        }
+    });
+
+    tempChart = new Chart('chartTemp', {
         type: 'line',
         data: {
             labels: [],
@@ -86,20 +157,18 @@ function initChart() {
                 }]
             },
             elements: {
-                point:{
+                point: {
                     radius: 0
                 }
             }
         }
     });
-
-    
 }
 
 function resizePage() {
     let screenHeight = window.innerHeight
     let headerheight = $('#lastData').outerHeight()
-    $('#chartData').css({
+    $('canvas').css({
         'max-height': `${(screenHeight-headerheight-30)}px`
     })
 }
@@ -147,7 +216,7 @@ function getTime(time) {
     return `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`
 }
 
-function renderChart(chart, data) {
+function renderTempChart(chart, data) {
     let labels = data.map(item => getTime(item.createdTime))
     let dht22_t = data.map(item => item.dht22_t)
     let gy68_t = data.map(item => item.gy68_t)
@@ -155,4 +224,25 @@ function renderChart(chart, data) {
     chart.data.datasets[0].data = dht22_t
     chart.data.datasets[1].data = gy68_t
     chart.update()
+}
+
+function renderHumiChart(chart, data) {
+    let labels = data.map(item => getTime(item.createdTime))
+    let dht22_h = data.map(item => item.dht22_h)
+    chart.data.labels = labels
+    chart.data.datasets[0].data = dht22_h
+    chart.update()
+}
+
+function renderAtmChart(chart, data) {
+    let labels = data.map(item => getTime(item.createdTime))
+    let gy68_p = data.map(item => item.gy68_p)
+    chart.data.labels = labels
+    chart.data.datasets[0].data = gy68_p
+    chart.update()
+}
+
+function showChart(chart) {
+    $('.chart').addClass('d-none')
+    $(`#${chart}`).parent().removeClass('d-none')
 }
