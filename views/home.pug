@@ -16,8 +16,15 @@ html(lang="vi")
     body
         .container
             .row
-                h1 Đo lần cuối vào lúc: 
+                h1.col-9 Đo lần cuối vào lúc: 
                     span#time
+                h1.col-3.form-check.pull-right
+                    if check
+                        label.form-check-label Thông báo
+                            input.form-check-input(id="check" type="checkbox" checked)
+                    else 
+                        label.form-check-label Thông báo
+                            input.form-check-input(id="check" type="checkbox")
             #lastData.row
                 .col-sm-12.col-md-6.col-xl-3
                     .card.bg-danger.m-b-30.head-card(name="chartTemp")
@@ -65,7 +72,7 @@ html(lang="vi")
                                         p.mb-0 Khí áp
 
             .row
-                .chart.col-12.d-none
+                .chart.col-12
                     canvas#chartTemp
             .row
                 .chart.col-12.d-none

@@ -8,16 +8,20 @@ $(document).ready(function () {
     $('.head-card').on('click', (e) => {
         showChart($(e.currentTarget).attr('name'))
     })
+    $('#check').on('change', (e) => {
+        changeCheck()
+        console.log($(e.currentTarget))
+    })
 
 
     initChart()
     resizePage()
     renderPage()
     getChartData().then(result => {
-        console.log(result)
-        renderTempChart(tempChart, result.reverse())
-        renderHumiChart(humiChart, result.reverse())
-        renderAtmChart(atmChart, result.reverse())
+        result.reverse()
+        renderTempChart(tempChart, result)
+        renderHumiChart(humiChart, result)
+        renderAtmChart(atmChart, result)
     }).catch(console.log)
     setInterval(function () {
         renderPage()
@@ -196,6 +200,21 @@ function getChartData() {
             type: 'get',
             url: '/getDataChart',
             contentType: "application/json",
+            success: function (data) {
+                resolve(data)
+            },
+            error: function (xhr) {
+                rejects(xhr)
+            }
+        })
+    })
+}
+
+function changeCheck() {
+    return new Promise((resolve, rejects) => {
+        $.ajax({
+            type: 'get',
+            url: '/toggleCheck',
             success: function (data) {
                 resolve(data)
             },
