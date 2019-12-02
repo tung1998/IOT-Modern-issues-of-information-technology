@@ -18,12 +18,12 @@ html(lang="vi")
             .row
                 h1.col-9 Đo lần cuối vào lúc: 
                     span#time
-                h1.col-3.form-check.pull-right
+                h3.col-3.form-check.pull-right
                     if check
-                        label.form-check-label Thông báo
+                        label.mt-2.form-check-label Thông báo khi lỗi
                             input.form-check-input(id="check" type="checkbox" checked)
                     else 
-                        label.form-check-label Thông báo
+                        label.mt-2.form-check-label Thông báo khi lỗi
                             input.form-check-input(id="check" type="checkbox")
             #lastData.row
                 .col-sm-12.col-md-6.col-xl-3
