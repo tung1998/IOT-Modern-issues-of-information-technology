@@ -52,24 +52,40 @@ MongoClient.connect(url, {
                 data.push(result.filter(item => item.createdTime >= curentDate - (i + 0.5) * 3600000 && item.createdTime <= curentDate - (i - 0.5) * 3600000))
             }
             let sendData = data.map((dataInDate, index) => {
-                dataInDateData = dataInDate.reduce((acc, cur) => {
-                    if (!isNaN(cur.dht22_t)) acc.dht22_t += cur.dht22_t
-                    if (!isNaN(cur.dht22_h)) acc.dht22_h += cur.dht22_h
-                    if (!isNaN(cur.gy68_t)) acc.gy68_t += cur.gy68_t
-                    if (!isNaN(cur.gy68_p)) acc.gy68_p += cur.gy68_p
+                dataInDateData = dataInDate.map.reduce((acc, cur) => {
+                    if (!isNaN(cur.dht22_t)){
+                        acc.dht22_t += cur.dht22_t
+                        acc.dht22_t_count ++
+                    } 
+                    if (!isNaN(cur.dht22_h)){
+                        acc.dht22_h += cur.dht22_h
+                        acc.dht22_h_count ++
+                    } 
+                    if (!isNaN(cur.gy68_t)){
+                        acc.gy68_t += cur.gy68_t
+                        acc.gy68_t_count ++
+                    } 
+                    if (!isNaN(cur.gy68_p)){
+                        acc.gy68_p += cur.gy68_p
+                        acc.gy68_p_count ++
+                    } 
                     return acc
                 }, {
                     dht22_t: 0,
                     dht22_h: 0,
                     gy68_t: 0,
                     gy68_p: 0,
-                    createdTime: `${curentDate-(index+1)*3600000}`
+                    createdTime: `${curentDate-(index+1)*3600000}`,
+                    dht22_t_count: 0,
+                    dht22_h_count: 0,
+                    gy68_t_count: 0,
+                    gy68_p_count: 0,
                 })
                 return {
-                    dht22_t: (dataInDateData.dht22_t / dataInDate.length).toFixed(2),
-                    dht22_h: (dataInDateData.dht22_h / dataInDate.length).toFixed(2),
-                    gy68_t: (dataInDateData.gy68_t / dataInDate.length).toFixed(2),
-                    gy68_p: (dataInDateData.gy68_p / dataInDate.length).toFixed(2),
+                    dht22_t: (dataInDateData.dht22_t / dataInDateData.dht22_t_count).toFixed(2),
+                    dht22_h: (dataInDateData.dht22_h / dataInDateData.dht22_h_count).toFixed(2),
+                    gy68_t: (dataInDateData.gy68_t / dataInDateData.gy68_t_count).toFixed(2),
+                    gy68_p: (dataInDateData.gy68_p / dataInDateData.gy68_p_count).toFixed(2),
                     createdTime: curentDate - (index + 1) * 3600000
                 }
             })
