@@ -27,7 +27,6 @@ $(document).ready(function () {
         renderAtmChart(atmChart, result)
     }).catch(console.log)
     getAllData().then(result => {
-        result.reverse()
         renderTempChart(tempChartAll, result)
         renderHumiChart(humiChartAll, result)
         renderAtmChart(atmChartAll, result)
