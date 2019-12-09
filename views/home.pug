@@ -38,7 +38,7 @@ html(lang="vi")
                                         h5#DHT-tem.mt-0.round-inner
                                         p.mb-0 Nhiệt độ DHT-22
                 .col-sm-12.col-md-6.col-lg-6.col-xl-3
-                    .card.bg-info.m-b-30.head-card(name="chartTemp")
+                    .card.bg-primary.m-b-30.head-card(name="chartTemp")
                         .card-body
                             .d-flex.row
                                 .col-3.align-self-center
@@ -60,7 +60,7 @@ html(lang="vi")
                                         h5#DHT-humi.mt-0.round-inner
                                         p.mb-0 Độ ẩm
                 .col-sm-12.col-md-6.col-lg-6.col-xl-3
-                    .card.bg-primary.m-b-30.head-card(name="chartAtm")
+                    .card.bg-warning.m-b-30.head-card(name="chartAtm")
                         .card-body
                             .d-flex.row
                                 .col-3.align-self-center
@@ -80,6 +80,15 @@ html(lang="vi")
             .row
                 .chart.col-12.d-none
                     canvas#chartAtm
+            .row
+                .chart.col-12
+                    canvas#chartTempAll
+            .row
+                .chart.col-12.d-none
+                    canvas#chartHumiAll
+            .row
+                .chart.col-12.d-none
+                    canvas#chartAtmAll
         script(src="/script.js" type="text/javascript")
 
 

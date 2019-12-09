@@ -79,6 +79,18 @@ MongoClient.connect(url, {
         })
     })
 
+    app.get('/getAllData', (req, res, next) => {
+        db.collection('data').find({}).sort({
+            _id: 1
+        }).toArray(function (err, result) {
+            let num  = Math.round(result.length/500)
+            data = result.filter((item,index)=>index%num==0)
+            
+            res.send(data);
+            res.end();
+        })
+    })
+
     app.get('/getLastData', (req, res, next) => {
         db.collection('data').find().limit(1).sort({
             _id: -1
@@ -141,7 +153,7 @@ MongoClient.connect(url, {
 
 function sendErrorMail(email = 'tung16021220@gmail.com') {
     let errorMail = {
-        from: 'filemanager.blackbird@gmail.com',
+        from: 'iot.tungviet@gmail.com',
         to: email,
         subject: 'Lỗi hệ thống',
         text: 'Có lỗi!!',

@@ -2,6 +2,9 @@ var chart;
 let tempChart
 let humiChart
 let atmChart
+let tempChartAll
+let humiChartAll
+let atmChartAll
 
 $(document).ready(function () {
     //event
@@ -22,6 +25,12 @@ $(document).ready(function () {
         renderTempChart(tempChart, result)
         renderHumiChart(humiChart, result)
         renderAtmChart(atmChart, result)
+    }).catch(console.log)
+    getAllData().then(result => {
+        result.reverse()
+        renderTempChart(tempChartAll, result)
+        renderHumiChart(humiChartAll, result)
+        renderAtmChart(atmChartAll, result)
     }).catch(console.log)
     setInterval(function () {
         renderPage()
@@ -55,7 +64,7 @@ function initChart() {
                     'rgba(0, 0, 0, 0)'
                 ],
                 borderColor: [
-                    'rgba(54, 162, 235, 1)'
+                    'rgba(0, 238, 54, 1)'
                 ],
                 borderWidth: 2
             }]
@@ -92,7 +101,7 @@ function initChart() {
                     'rgba(0, 0, 0, 0)'
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
+                    'rgba(255, 230, 0, 1)',
                 ],
                 borderWidth: 2
             }]
@@ -120,6 +129,130 @@ function initChart() {
     });
 
     tempChart = new Chart('chartTemp', {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                    label: ['Nhiệt độ DHT-22'],
+                    data: [],
+                    backgroundColor: [
+                        'rgba(0, 0, 0, 0)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 2
+                },
+                {
+                    label: ['Nhiệt độ GY-68'],
+                    data: [],
+                    backgroundColor: [
+                        'rgba(0, 0, 0, 0)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Biểu đồ nhiệt độ'
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 7
+                    }
+                }]
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+        }
+    });
+
+    humiChartAll = new Chart('chartHumiAll', {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: ['Độ ẩm DHT-22'],
+                data: [],
+                backgroundColor: [
+                    'rgba(0, 0, 0, 0)'
+                ],
+                borderColor: [
+                    'rgba(0, 238, 54, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Biểu đồ độ ẩm'
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 7
+                    }
+                }]
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+        }
+    });
+
+    atmChartAll = new Chart('chartAtmAll', {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: ['Khí áp GY-68'],
+                data: [],
+                backgroundColor: [
+                    'rgba(0, 0, 0, 0)'
+                ],
+                borderColor: [
+                    'rgba(255, 230, 0, 1)',
+                ],
+                borderWidth: 2
+            }]
+        },
+
+        options: {
+            title: {
+                display: true,
+                text: 'Biểu đồ khí áp'
+            },
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 7
+                    }
+                }]
+            },
+            elements: {
+                point: {
+                    radius: 0
+                }
+            }
+        }
+    });
+
+    tempChartAll = new Chart('chartTempAll', {
         type: 'line',
         data: {
             labels: [],
@@ -210,6 +343,22 @@ function getChartData() {
     })
 }
 
+function getAllData() {
+    return new Promise((resolve, rejects) => {
+        $.ajax({
+            type: 'get',
+            url: '/getAllData',
+            contentType: "application/json",
+            success: function (data) {
+                resolve(data)
+            },
+            error: function (xhr) {
+                rejects(xhr)
+            }
+        })
+    })
+}
+
 function changeCheck() {
     return new Promise((resolve, rejects) => {
         $.ajax({
@@ -227,12 +376,12 @@ function changeCheck() {
 
 function getDate(time) {
     let newDate = new Date(time)
-    return `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()}`
+    return `${newDate.getDate()}/${newDate.getMonth()+1}/${newDate.getFullYear()}`
 }
 
 function getTime(time) {
     let newDate = new Date(time)
-    return `${newDate.getDate()}/${newDate.getMonth()}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`
+    return `${newDate.getDate()}/${newDate.getMonth()+1}/${newDate.getFullYear()} ${newDate.getHours()}:${newDate.getMinutes()}:${newDate.getSeconds()}`
 }
 
 function renderTempChart(chart, data) {
@@ -264,4 +413,5 @@ function renderAtmChart(chart, data) {
 function showChart(chart) {
     $('.chart').addClass('d-none')
     $(`#${chart}`).parent().removeClass('d-none')
+    $(`#${chart}All`).parent().removeClass('d-none')
 }
