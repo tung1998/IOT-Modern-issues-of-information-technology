@@ -52,7 +52,7 @@ MongoClient.connect(url, {
                 data.push(result.filter(item => item.createdTime >= curentDate - (i + 0.5) * 3600000 && item.createdTime <= curentDate - (i - 0.5) * 3600000))
             }
             let sendData = data.map((dataInDate, index) => {
-                dataInDateData = dataInDate.map.reduce((acc, cur) => {
+                dataInDateData = dataInDate.reduce((acc, cur) => {
                     if (!isNaN(cur.dht22_t)){
                         acc.dht22_t += cur.dht22_t
                         acc.dht22_t_count ++
