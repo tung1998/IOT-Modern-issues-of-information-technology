@@ -71,7 +71,7 @@ function initChart() {
         options: {
             title: {
                 display: true,
-                text: 'Biểu đồ độ ẩm'
+                text: 'Biểu đồ độ ẩm một tuần vừa qua'
             },
             scales: {
                 xAxes: [{
@@ -109,7 +109,7 @@ function initChart() {
         options: {
             title: {
                 display: true,
-                text: 'Biểu đồ khí áp'
+                text: 'Biểu đồ khí áp một tuần vừa qua'
             },
             scales: {
                 xAxes: [{
@@ -158,7 +158,7 @@ function initChart() {
         options: {
             title: {
                 display: true,
-                text: 'Biểu đồ nhiệt độ'
+                text: 'Biểu đồ nhiệt độ một tuần vừa qua'
             },
             scales: {
                 xAxes: [{
@@ -195,7 +195,7 @@ function initChart() {
         options: {
             title: {
                 display: true,
-                text: 'Biểu đồ độ ẩm'
+                text: 'Biểu đồ tổng hợp dữ liệu độ ẩm'
             },
             scales: {
                 xAxes: [{
@@ -233,7 +233,7 @@ function initChart() {
         options: {
             title: {
                 display: true,
-                text: 'Biểu đồ khí áp'
+                text: 'Biểu đồ tổng hợp dữ liệu khí áp'
             },
             scales: {
                 xAxes: [{
@@ -282,7 +282,7 @@ function initChart() {
         options: {
             title: {
                 display: true,
-                text: 'Biểu đồ nhiệt độ'
+                text: 'Biểu đồ tổng hợp dữ liệu nhiệt độ'
             },
             scales: {
                 xAxes: [{
