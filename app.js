@@ -194,7 +194,7 @@ function checkDatabase(db) {
         _id: -1
     }).toArray(function (err, data) {
         console.log(check)
-        if (Date.now() - data[0].createdTime >= 60 * 60 * 1000 && check) {
+        if (Date.now() - data[0].createdTime >= 30 * 1000 && check) {
             sendErrorMail()
             check = false
         }
