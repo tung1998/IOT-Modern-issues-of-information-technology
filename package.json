@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "dependencies": {
     "ajax-request": "^1.2.3",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "cookie": "^0.3.1",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "express-validator": "^5.3.0",
     "md5": "^2.2.1",
     "mongodb": "^3.1.8",
