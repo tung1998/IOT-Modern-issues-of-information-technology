@@ -5,7 +5,7 @@
     "ajax-request": "^1.2.3",
     "body-parser": "^1.18.3",
     "cookie": "^0.3.1",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-validator": "^5.3.0",
     "md5": "^2.2.1",
     "mongodb": "^3.1.8",
